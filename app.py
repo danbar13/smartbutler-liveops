@@ -692,18 +692,13 @@ JAYBEE_LOGO_SVG = """<svg width="140" height="34" viewBox="0 0 134 34" fill="non
 db.init_db()
 
 # Session State Initialization for Report ID
-prev_id = st.session_state.get("active_report_id")
+keep_arch = (st.query_params.get("arch") == "1")
 if "report_id" in st.query_params:
     try:
         qid = int(st.query_params["report_id"])
-        if prev_id != qid:
-            st.session_state.just_selected_report_id = qid
         st.session_state.active_report_id = qid
     except Exception:
         pass
-
-if st.query_params.get("arch") == "1":
-    st.session_state.keep_archive_open = True
 
 if "active_report_id" not in st.session_state:
     latest = db.get_latest_report()
@@ -743,39 +738,11 @@ with st.sidebar:
 
     st.divider()
 
-    st.subheader(t("sidebar_history", lang))
     historical_reports = db.list_reports()
-
     if historical_reports:
-        report_options = {
-            r["id"]: f"#{r['id']} | {r['site_name']} | {r['date_range']}"
-            for r in historical_reports
-        }
-        
-        current_id = st.session_state.active_report_id or historical_reports[0]["id"]
-        active_tag = f" {t('sidebar_active', lang)}"
-        chosen_side_id = st.selectbox(
-            t("sidebar_select", lang),
-            options=list(report_options.keys()),
-            format_func=lambda x: report_options[x] + (active_tag if x == current_id else ""),
-            index=list(report_options.keys()).index(current_id) if current_id in report_options else 0
-        )
-        if chosen_side_id != st.session_state.active_report_id:
-            st.session_state.active_report_id = chosen_side_id
-            st.query_params["report_id"] = chosen_side_id
-            st.rerun()
-
-        active_meta = next((r for r in historical_reports if r["id"] == st.session_state.active_report_id), None)
+        active_meta = next((r for r in historical_reports if r["id"] == st.session_state.active_report_id), historical_reports[0])
         if active_meta:
             st.info(t("sidebar_active_box", lang, id=active_meta['id'], filename=active_meta['raw_filename'], tickets=active_meta['total_tickets'], rate=active_meta['overall_success_rate']))
-
-        if st.button(t("sidebar_del_btn", lang), use_container_width=True):
-            del_id = st.session_state.active_report_id
-            db.delete_report(del_id)
-            st.success(t("sidebar_del_success", lang))
-            rem = db.list_reports()
-            st.session_state.active_report_id = rem[0]["id"] if rem else None
-            st.rerun()
     else:
         st.caption(t("sidebar_empty", lang))
 
@@ -862,51 +829,6 @@ tab1, tab2, tab3, tab4 = st.tabs([
 with tab1:
     st.subheader(t("tab1_header", lang))
 
-    # Prominent Active Report Status & Quick Navigation Banner (Always Visible outside expanders)
-    if active_report:
-        if st.session_state.get("just_selected_report_id"):
-            st.toast(t("tab1_toast_loaded", lang, id=active_report['id'], site=active_report['site_name']), icon="📋")
-            st.session_state["just_selected_report_id"] = None
-
-        tickets_txt = f"{active_report['total_tickets']} " + ("קריאות" if lang == LANG_HE else "tickets")
-        rate_val = active_report.get("overall_success_rate", 0.0)
-        rate_col = "#10b981" if rate_val >= 80 else ("#f59e0b" if rate_val >= 60 else "#ef4444")
-        card_border_side = "border-right: 6px solid #0284c7;" if is_rtl else "border-left: 6px solid #0284c7;"
-
-        card_html = f"""<div style="background: linear-gradient(135deg, rgba(13,40,56,0.95), rgba(15,23,42,0.98)); border: 1.5px solid #0284c7; {card_border_side} border-radius: 10px; padding: 18px 22px; margin-bottom: 22px; box-shadow: 0 4px 16px rgba(0,0,0,0.3); direction: {dir_css}; text-align: {align_css};">
-<div style="display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:12px;">
-<div>
-<div style="display:inline-flex; align-items:center; gap:8px; background:rgba(2,132,199,0.18); border:1px solid #0284c7; border-radius:20px; padding:4px 12px; margin-bottom:8px;">
-<span style="font-size:14px;">✅</span>
-<span style="font-size:13px; font-weight:700; color:#38bdf8;">{t('tab1_active_card_title', lang)}</span>
-</div>
-<h3 style="margin:2px 0 6px 0; font-size:18px; color:#ffffff;">#{active_report['id']} — {active_report['site_name']}</h3>
-<div style="font-size:13.5px; color:#94a3b8; display:flex; flex-wrap:wrap; gap:14px; margin-top:4px;">
-<span>📅 <strong>{active_report['date_range']}</strong></span>
-<span>🎫 <strong>{tickets_txt}</strong></span>
-<span>⏱️ {t('t1_col_sla', lang)}: <strong style="color:{rate_col};">{rate_val}%</strong></span>
-<span>⏳ {t('t1_col_avg', lang)}: <strong>{active_report.get('avg_duration_str') or '-'}</strong></span>
-<span>📁 <code>{active_report['raw_filename']}</code></span>
-</div>
-<div style="margin-top:10px; font-size:14px; font-weight:600; color:#e2e8f0; line-height:1.5;">
-💡 {t('tab1_active_card_desc', lang, id=active_report['id'], site=active_report['site_name'], period=active_report['date_range'])}
-</div>
-</div>
-</div>
-<div style="display:flex; flex-wrap:wrap; gap:10px; margin-top:14px; padding-top:12px; border-top:1px solid rgba(255,255,255,0.08);">
-<div style="background:rgba(2,132,199,0.18); border:1px solid #0284c7; color:#38bdf8; border-radius:8px; padding:8px 16px; font-weight:600; font-size:13.5px; display:inline-flex; align-items:center; gap:6px;">
-👉 <strong>{t('tab1_btn_goto_tab2', lang)}</strong>
-</div>
-<div style="background:rgba(15,118,110,0.18); border:1px solid #0f766e; color:#2dd4bf; border-radius:8px; padding:8px 16px; font-weight:600; font-size:13.5px; display:inline-flex; align-items:center; gap:6px;">
-👉 <strong>{t('tab1_btn_goto_tab3', lang)}</strong>
-</div>
-<div style="background:rgba(100,116,139,0.18); border:1px solid #475569; color:#cbd5e1; border-radius:8px; padding:8px 16px; font-weight:600; font-size:13.5px; display:inline-flex; align-items:center; gap:6px;">
-👉 <strong>{t('tab1_btn_goto_tab4', lang)}</strong>
-</div>
-</div>
-</div>"""
-        st.markdown(card_html, unsafe_allow_html=True)
-
     with st.expander(t("tab1_up_expander", lang), expanded=False):
         st.markdown(t("tab1_up_desc", lang))
 
@@ -964,47 +886,10 @@ with tab1:
 
     all_reports = db.list_reports()
     if all_reports:
-        with st.expander(t("tab1_arch_expander", lang, count=len(all_reports)), expanded=st.session_state.get("keep_archive_open", False)):
-            active_id = st.session_state.active_report_id or all_reports[0]["id"]
-
-            # Quick Selector Dropdown (Smooth in-app rerun without page jump)
-            report_options = [r["id"] for r in all_reports]
-            def format_report_tab1(rid):
-                rep = next((r for r in all_reports if r["id"] == rid), None)
-                if not rep:
-                    return f"#{rid}"
-                active_mark = f" [{t('sidebar_active', lang)}]" if rid == active_id else ""
-                tickets_str = "קריאות" if lang == LANG_HE else "tickets"
-                return f"#{rid} | {rep['site_name']} | {rep['date_range']} ({rep['total_tickets']} {tickets_str}, {rep['overall_success_rate']}%) {active_mark}"
-
-            active_idx = report_options.index(active_id) if active_id in report_options else 0
-            col_q1, col_q2 = st.columns([4, 1])
-            with col_q1:
-                chosen_tab1_id = st.selectbox(
-                    t("tab1_quick_select", lang),
-                    options=report_options,
-                    index=active_idx,
-                    format_func=format_report_tab1,
-                    key="sb_select_report_tab1"
-                )
-            with col_q2:
-                st.markdown("<div style='margin-top:28px;'></div>", unsafe_allow_html=True)
-                if st.button("🔍 " + t("sidebar_select", lang), key="btn_apply_tab1_select", use_container_width=True):
-                    if chosen_tab1_id != st.session_state.active_report_id:
-                        st.session_state.active_report_id = chosen_tab1_id
-                        st.session_state.keep_archive_open = True
-                        st.session_state.just_selected_report_id = chosen_tab1_id
-                        st.query_params["report_id"] = chosen_tab1_id
-                        st.rerun()
-
-            if chosen_tab1_id != st.session_state.active_report_id:
-                st.session_state.active_report_id = chosen_tab1_id
-                st.session_state.keep_archive_open = True
-                st.session_state.just_selected_report_id = chosen_tab1_id
-                st.query_params["report_id"] = chosen_tab1_id
-                st.rerun()
-
+        with st.expander(t("tab1_arch_expander", lang, count=len(all_reports)), expanded=keep_arch):
             st.markdown(f"**{t('tab1_arch_prompt', lang)}**")
+
+            active_id = st.session_state.active_report_id or all_reports[0]["id"]
 
             # Build RTL/LTR HTML table
             border_active = "border-right: 4px solid #10b981;" if is_rtl else "border-left: 4px solid #10b981;"
@@ -1032,7 +917,7 @@ with tab1:
 
                 status_circle = '<span style="font-size:15px;">🟢</span>' if is_active else ''
 
-                html.append(f"""<tr onclick="window.location.href='?report_id={r['id']}&lang={lang}&arch=1'" style="cursor: pointer; {row_bg}">
+                html.append(f"""<tr onclick="window.location.search='?report_id={r['id']}&lang={lang}&arch=1'" style="cursor: pointer; {row_bg}">
                     <td style="text-align: center; vertical-align: middle;">{sel_icon}</td>
                     <td style="text-align: center; vertical-align: middle;">{status_circle}</td>
                     <td style="text-align: center; vertical-align: middle; font-weight: bold; color: #38bdf8;">#{r['id']}</td>
