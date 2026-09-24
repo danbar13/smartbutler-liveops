@@ -878,27 +878,41 @@ with st.sidebar:
     
     # Language Switcher in Sidebar
     sb_active_id = st.session_state.active_report_id or 1
-    st.markdown(f"<div style='margin-top: 10px; margin-bottom: 6px; font-weight: 600; font-size: 13px; color: {'#475569' if is_light else '#94a3b8'};'>🌐 שפה / Language:</div>", unsafe_allow_html=True)
-    st.markdown(f"""
-    <div style="display:flex; gap:8px; margin-bottom:10px;">
-        <a href="?lang={LANG_HE}&report_id={sb_active_id}&theme={theme}" target="_self" style="flex:1; text-align:center; padding:7px 8px; border-radius:6px; text-decoration:none; display:flex; align-items:center; justify-content:center; gap:6px; font-size:13px; font-weight:600; background:{'linear-gradient(135deg, #0284c7, #0369a1)' if lang == LANG_HE else ('#ffffff' if is_light else '#1e293b')}; color:{'#ffffff' if lang == LANG_HE else ('#0f172a' if is_light else '#cbd5e1')} !important; border:1px solid {'#38bdf8' if lang == LANG_HE else ('#cbd5e1' if is_light else 'rgba(75, 189, 219, 0.25)')}; box-shadow:{'0 0 10px rgba(56,189,248,0.4)' if lang == LANG_HE else 'none'};">
-            {FLAG_IL_SVG} עברית
-        </a>
-        <a href="?lang={LANG_EN}&report_id={sb_active_id}&theme={theme}" target="_self" style="flex:1; text-align:center; padding:7px 8px; border-radius:6px; text-decoration:none; display:flex; align-items:center; justify-content:center; gap:6px; font-size:13px; font-weight:600; background:{'linear-gradient(135deg, #0284c7, #0369a1)' if lang == LANG_EN else ('#ffffff' if is_light else '#1e293b')}; color:{'#ffffff' if lang == LANG_EN else ('#0f172a' if is_light else '#cbd5e1')} !important; border:1px solid {'#38bdf8' if lang == LANG_EN else ('#cbd5e1' if is_light else 'rgba(75, 189, 219, 0.25)')}; box-shadow:{'0 0 10px rgba(56,189,248,0.4)' if lang == LANG_EN else 'none'};">
-            {FLAG_GB_SVG} English
-        </a>
-    </div>
-    
-    <div style='margin-top: 10px; margin-bottom: 6px; font-weight: 600; font-size: 13px; color: {"#475569" if is_light else "#94a3b8"};'>{t("theme_label", lang)}</div>
-    <div style="display:flex; gap:8px; margin-bottom:12px;">
-        <a href="?lang={lang}&report_id={sb_active_id}&theme={THEME_LIGHT}" target="_self" style="flex:1; text-align:center; padding:7px 8px; border-radius:6px; text-decoration:none; display:flex; align-items:center; justify-content:center; gap:6px; font-size:13px; font-weight:600; background:{'linear-gradient(135deg, #0284c7, #0369a1)' if is_light else ('#ffffff' if is_light else '#1e293b')}; color:{'#ffffff' if is_light else ('#0f172a' if is_light else '#cbd5e1')} !important; border:1px solid {'#38bdf8' if is_light else ('#cbd5e1' if is_light else 'rgba(75, 189, 219, 0.25)')}; box-shadow:{'0 0 10px rgba(56,189,248,0.4)' if is_light else 'none'};">
-            ☀️ {t('theme_light', lang)}
-        </a>
-        <a href="?lang={lang}&report_id={sb_active_id}&theme={THEME_DARK}" target="_self" style="flex:1; text-align:center; padding:7px 8px; border-radius:6px; text-decoration:none; display:flex; align-items:center; justify-content:center; gap:6px; font-size:13px; font-weight:600; background:{'linear-gradient(135deg, #0284c7, #0369a1)' if not is_light else ('#ffffff' if is_light else '#1e293b')}; color:{'#ffffff' if not is_light else ('#0f172a' if is_light else '#cbd5e1')} !important; border:1px solid {'#38bdf8' if not is_light else ('#cbd5e1' if is_light else 'rgba(75, 189, 219, 0.25)')}; box-shadow:{'0 0 10px rgba(56,189,248,0.4)' if not is_light else 'none'};">
-            🌙 {t('theme_dark', lang)}
-        </a>
-    </div>
-    """, unsafe_allow_html=True)
+    theme_color = "#475569" if is_light else "#94a3b8"
+    theme_label_text = t("theme_label", lang)
+    bg_he = 'linear-gradient(135deg, #0284c7, #0369a1)' if lang == LANG_HE else ('#ffffff' if is_light else '#1e293b')
+    col_he = '#ffffff' if lang == LANG_HE else ('#0f172a' if is_light else '#cbd5e1')
+    bord_he = '#38bdf8' if lang == LANG_HE else ('#cbd5e1' if is_light else 'rgba(75, 189, 219, 0.25)')
+    sh_he = '0 0 10px rgba(56,189,248,0.4)' if lang == LANG_HE else 'none'
+
+    bg_en = 'linear-gradient(135deg, #0284c7, #0369a1)' if lang == LANG_EN else ('#ffffff' if is_light else '#1e293b')
+    col_en = '#ffffff' if lang == LANG_EN else ('#0f172a' if is_light else '#cbd5e1')
+    bord_en = '#38bdf8' if lang == LANG_EN else ('#cbd5e1' if is_light else 'rgba(75, 189, 219, 0.25)')
+    sh_en = '0 0 10px rgba(56,189,248,0.4)' if lang == LANG_EN else 'none'
+
+    bg_light = 'linear-gradient(135deg, #0284c7, #0369a1)' if is_light else ('#ffffff' if is_light else '#1e293b')
+    col_light = '#ffffff' if is_light else ('#0f172a' if is_light else '#cbd5e1')
+    bord_light = '#38bdf8' if is_light else ('#cbd5e1' if is_light else 'rgba(75, 189, 219, 0.25)')
+    sh_light = '0 0 10px rgba(56,189,248,0.4)' if is_light else 'none'
+
+    bg_dark = 'linear-gradient(135deg, #0284c7, #0369a1)' if not is_light else ('#ffffff' if is_light else '#1e293b')
+    col_dark = '#ffffff' if not is_light else ('#0f172a' if is_light else '#cbd5e1')
+    bord_dark = '#38bdf8' if not is_light else ('#cbd5e1' if is_light else 'rgba(75, 189, 219, 0.25)')
+    sh_dark = '0 0 10px rgba(56,189,248,0.4)' if not is_light else 'none'
+
+    st.markdown(
+        f'<div style="margin-top: 10px; margin-bottom: 6px; font-weight: 600; font-size: 13px; color: {theme_color};">🌐 שפה / Language:</div>'
+        f'<div style="display:flex; gap:8px; margin-bottom:10px;">'
+        f'<a href="?lang={LANG_HE}&report_id={sb_active_id}&theme={theme}" target="_self" style="flex:1; text-align:center; padding:7px 8px; border-radius:6px; text-decoration:none; display:flex; align-items:center; justify-content:center; gap:6px; font-size:13px; font-weight:600; background:{bg_he}; color:{col_he} !important; border:1px solid {bord_he}; box-shadow:{sh_he};">{FLAG_IL_SVG} עברית</a>'
+        f'<a href="?lang={LANG_EN}&report_id={sb_active_id}&theme={theme}" target="_self" style="flex:1; text-align:center; padding:7px 8px; border-radius:6px; text-decoration:none; display:flex; align-items:center; justify-content:center; gap:6px; font-size:13px; font-weight:600; background:{bg_en}; color:{col_en} !important; border:1px solid {bord_en}; box-shadow:{sh_en};">{FLAG_GB_SVG} English</a>'
+        f'</div>'
+        f'<div style="margin-top: 10px; margin-bottom: 6px; font-weight: 600; font-size: 13px; color: {theme_color};">{theme_label_text}</div>'
+        f'<div style="display:flex; gap:8px; margin-bottom:12px;">'
+        f'<a href="?lang={lang}&report_id={sb_active_id}&theme={THEME_LIGHT}" target="_self" style="flex:1; text-align:center; padding:7px 8px; border-radius:6px; text-decoration:none; display:flex; align-items:center; justify-content:center; gap:6px; font-size:13px; font-weight:600; background:{bg_light}; color:{col_light} !important; border:1px solid {bord_light}; box-shadow:{sh_light};">☀️ {t("theme_light", lang)}</a>'
+        f'<a href="?lang={lang}&report_id={sb_active_id}&theme={THEME_DARK}" target="_self" style="flex:1; text-align:center; padding:7px 8px; border-radius:6px; text-decoration:none; display:flex; align-items:center; justify-content:center; gap:6px; font-size:13px; font-weight:600; background:{bg_dark}; color:{col_dark} !important; border:1px solid {bord_dark}; box-shadow:{sh_dark};">🌙 {t("theme_dark", lang)}</a>'
+        f'</div>',
+        unsafe_allow_html=True
+    )
 
     st.divider()
 
