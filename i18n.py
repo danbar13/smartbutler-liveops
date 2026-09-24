@@ -366,6 +366,9 @@ TEXTS = {
         "sidebar_pdf_success": "דוח PDF נטען ונשמר כדוח #{id}!",
         "sidebar_csv_success": "דוח CSV נטען ונשמר כדוח #{id}!",
         "sidebar_footer": "פיתוח: מומחה מערכות תפעול מלונאיות • JAYBEE Systems",
+        "theme_label": "🎨 מצב תצוגה / Theme:",
+        "theme_light": "בהיר (רגיל)",
+        "theme_dark": "כהה",
         # Tabs
         "tab1_name": "📤 העלאת דוחות ושמירה",
         "tab2_name": "📋 תדריך להנהלה - ישיבת בוקר",
@@ -553,6 +556,9 @@ TEXTS = {
         "sidebar_pdf_success": "PDF Report loaded and saved as Report #{id}!",
         "sidebar_csv_success": "CSV Report loaded and saved as Report #{id}!",
         "sidebar_footer": "Engineered by Hotel Operations Systems Expert • JAYBEE Systems",
+        "theme_label": "🎨 Theme / מצב תצוגה:",
+        "theme_light": "Light (Regular)",
+        "theme_dark": "Dark",
         # Tabs
         "tab1_name": "📤 Report Ingestion & Archive",
         "tab2_name": "📋 Executive Standup Briefing",

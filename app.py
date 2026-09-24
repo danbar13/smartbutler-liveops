@@ -7,6 +7,7 @@ SmartButler® LiveOps Digest Dashboard — Dual Language (Hebrew RTL / English L
 import os
 import io
 import streamlit as st
+import streamlit.components.v1 as components
 import pandas as pd
 from datetime import datetime
 from collections import defaultdict, Counter
@@ -48,6 +49,176 @@ is_rtl = (lang == LANG_HE)
 dir_css = "rtl" if is_rtl else "ltr"
 align_css = "right" if is_rtl else "left"
 
+# Initialize Theme State from Query Params or Session State
+THEME_DARK = "dark"
+THEME_LIGHT = "light"
+
+if "theme" in st.query_params:
+    st.session_state.theme = st.query_params["theme"]
+elif "theme" not in st.session_state:
+    st.session_state.theme = THEME_DARK
+
+theme = st.session_state.theme
+if theme not in [THEME_DARK, THEME_LIGHT]:
+    theme = THEME_DARK
+    st.session_state.theme = THEME_DARK
+
+is_light = (theme == THEME_LIGHT)
+
+# Hide Streamlit Cloud viewer badges and "Manage app" button from parent document
+components.html("""
+<script>
+function hideCloudManageApp() {
+    try {
+        const docs = [document];
+        if (window.parent && window.parent.document) docs.push(window.parent.document);
+        if (window.top && window.top.document && window.top !== window.parent) docs.push(window.top.document);
+        docs.forEach(doc => {
+            if (!doc.getElementById('hide-cloud-manage-css')) {
+                const s = doc.createElement('style');
+                s.id = 'hide-cloud-manage-css';
+                s.innerHTML = `
+                    [class*="viewerBadge"],
+                    [class*="profileContainer"],
+                    [data-testid="manage-app-button"],
+                    ._viewerBadge_1j65n_23,
+                    ._profileContainer_gzau3_53,
+                    .viewerBadge_container__1333V,
+                    ._container_gzau3_1 {
+                        display: none !important;
+                        visibility: hidden !important;
+                        opacity: 0 !important;
+                        pointer-events: none !important;
+                        width: 0 !important;
+                        height: 0 !important;
+                    }
+                `;
+                doc.head.appendChild(s);
+            }
+            doc.querySelectorAll('[class*="viewerBadge"], [class*="profileContainer"], [data-testid="manage-app-button"], ._container_gzau3_1').forEach(el => {
+                el.style.display = 'none';
+            });
+        });
+    } catch(e) {}
+}
+hideCloudManageApp();
+setInterval(hideCloudManageApp, 500);
+</script>
+""", height=0, width=0)
+
+# Dynamic Theme CSS Overrides
+theme_css = f"""
+    /* Light Theme Global Palette */
+    .stApp, [data-testid="stAppViewContainer"], .main, .block-container {{
+        background-color: #f8fafc !important;
+        color: #0f172a !important;
+    }}
+    [data-testid="stSidebar"], [data-testid="stSidebarContent"], section[data-testid="stSidebar"] {{
+        background-color: #f1f5f9 !important;
+        color: #0f172a !important;
+        border-inline-end: 1px solid #cbd5e1 !important;
+    }}
+    h1, h2, h3, h4, h5, h6, p, label, li, [data-testid="stMarkdownContainer"] {{
+        color: #0f172a !important;
+    }}
+    .stMarkdown p, .stMarkdown span {{
+        color: #1e293b !important;
+    }}
+    /* Metric Cards in Light Mode */
+    div[data-testid="stMetric"] {{
+        background: #ffffff !important;
+        border: 1px solid #cbd5e1 !important;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05) !important;
+    }}
+    [data-testid="stMetricLabel"], [data-testid="stMetricLabel"] * {{
+        color: #475569 !important;
+    }}
+    [data-testid="stMetricValue"], [data-testid="stMetricValue"] * {{
+        color: #0f172a !important;
+    }}
+    [data-testid="stMetricDelta"] svg {{
+        fill: #0284c7 !important;
+    }}
+    [data-testid="stMetricDelta"] div, [data-testid="stMetricDelta"] p {{
+        color: #0284c7 !important;
+    }}
+    /* Expanders in Light Mode */
+    div[data-testid="stExpander"] {{
+        background: #ffffff !important;
+        border: 1px solid #cbd5e1 !important;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.04) !important;
+    }}
+    div[data-testid="stExpander"] summary {{
+        background: #f8fafc !important;
+        color: #0f172a !important;
+        border-bottom: 1px solid #e2e8f0 !important;
+    }}
+    div[data-testid="stExpander"] summary * {{
+        color: #0f172a !important;
+    }}
+    /* Native Styled HTML Tables in Light Mode */
+    .sb-table {{
+        background: #ffffff !important;
+        color: #0f172a !important;
+        border: 1px solid #e2e8f0 !important;
+    }}
+    .sb-table thead tr th {{
+        background: #e2e8f0 !important;
+        color: #0f172a !important;
+        border-bottom: 2px solid #cbd5e1 !important;
+    }}
+    .sb-table tbody tr {{
+        border-bottom: 1px solid #e2e8f0 !important;
+        background: #ffffff !important;
+    }}
+    .sb-table tbody tr:hover {{
+        background: #f1f5f9 !important;
+    }}
+    .sb-table tbody tr td {{
+        color: #1e293b !important;
+    }}
+    /* Tabs in Light Mode */
+    button[data-baseweb="tab"] {{
+        color: #475569 !important;
+    }}
+    button[data-baseweb="tab"][aria-selected="true"] {{
+        color: #0284c7 !important;
+        border-bottom-color: #0284c7 !important;
+    }}
+    /* Tab 2 briefing banner in Light Mode */
+    .tab2-brief-banner {{
+        background: #ffffff !important;
+        border: 1px solid #cbd5e1 !important;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.06) !important;
+    }}
+    .tab2-brief-banner h3 {{
+        color: #0284c7 !important;
+    }}
+    .tab2-brief-banner p {{
+        color: #475569 !important;
+    }}
+    /* Pills in Light Mode */
+    .lang-flag-pill {{
+        background: #ffffff !important;
+        color: #475569 !important;
+        border: 1px solid #cbd5e1 !important;
+    }}
+    .lang-flag-pill:hover {{
+        background: #f1f5f9 !important;
+        color: #0284c7 !important;
+    }}
+    .lang-flag-pill.active {{
+        background: linear-gradient(135deg, #0284c7, #0369a1) !important;
+        color: #ffffff !important;
+        border-color: #0284c7 !important;
+    }}
+    .header-badge-section {{
+        background: rgba(255, 255, 255, 0.15) !important;
+        border: 1px solid rgba(255, 255, 255, 0.35) !important;
+        color: #ffffff !important;
+    }}
+""" if is_light else ""
+
 # Dynamic CSS Styling based on Active Language (Hebrew RTL vs English LTR)
 st.markdown(f"""
 <style>
@@ -57,20 +228,22 @@ st.markdown(f"""
         direction: {dir_css} !important;
     }}
 
-    /* Complete elimination of Streamlit header, toolbar, developer actions (Share, Star, Edit, GitHub) and hamburger menu */
-    #MainMenu {{ visibility: hidden !important; display: none !important; }}
-    header, [data-testid="stHeader"], .stAppHeader {{
+    /* Complete elimination of Streamlit developer actions (Share, Star, Edit, GitHub, Deploy) */
+    .stAppDeployButton,
+    [data-testid="stToolbarActions"], 
+    [data-testid="stDecoration"], 
+    [data-testid="stStatusWidget"], 
+    .stStatusWidget,
+    [data-testid="stToolbarNav"],
+    [data-testid="manage-app-button"],
+    div[class*="viewerBadge"], 
+    div[class*="profileContainer"] {{
         visibility: hidden !important;
         display: none !important;
-        height: 0 !important;
-        width: 0 !important;
-        min-height: 0 !important;
-        max-height: 0 !important;
         opacity: 0 !important;
         pointer-events: none !important;
-        position: absolute !important;
-        top: -9999px !important;
-        left: -9999px !important;
+        height: 0 !important;
+        width: 0 !important;
         overflow: hidden !important;
     }}
     footer, [data-testid="stFooter"] {{
@@ -78,31 +251,19 @@ st.markdown(f"""
         display: none !important;
         height: 0 !important;
     }}
-    [data-testid="stToolbar"], 
-    [data-testid="stToolbarActions"], 
-    .stAppToolbar, 
-    [data-testid="stToolbarActionButton"],
-    [data-testid="stToolbarNav"],
-    [data-testid="stMainMenuButton"] {{
-        visibility: hidden !important;
-        display: none !important;
-        opacity: 0 !important;
-        pointer-events: none !important;
+    /* Keep Streamlit header transparent so sidebar toggle chevron button works on mobile & desktop */
+    header, [data-testid="stHeader"], .stAppHeader {{
+        background: transparent !important;
+        border: none !important;
+        z-index: 9999 !important;
     }}
-    [data-testid="stDecoration"], 
-    [data-testid="stStatusWidget"], 
-    .stStatusWidget,
-    .stAppDeployButton,
-    [data-testid="manage-app-button"] {{
-        visibility: hidden !important;
-        display: none !important;
-    }}
-    div[class*="viewerBadge"], 
-    div[class*="Toolbar"], 
-    div[class*="StatusWidget"],
-    div[class*="profileContainer"] {{
-        display: none !important;
-        visibility: hidden !important;
+    /* Sidebar toggle chevron button: ensure ALWAYS accessible and visible on mobile & desktop */
+    [data-testid="stSidebarCollapseButton"] {{
+        visibility: visible !important;
+        display: inline-flex !important;
+        opacity: 1 !important;
+        pointer-events: auto !important;
+        z-index: 999999 !important;
     }}
 
     /* Keep Streamlit's outer shell LTR so sidebar collapse/expand works natively */
@@ -127,14 +288,6 @@ st.markdown(f"""
         text-align: {align_css} !important;
     }}
 
-    /* Ensure sidebar overflow is hidden when collapsed */
-    [data-testid="stSidebar"][aria-expanded="false"],
-    section[data-testid="stSidebar"][aria-expanded="false"] {{
-        display: none !important;
-        visibility: hidden !important;
-        width: 0 !important;
-        overflow: hidden !important;
-    }}
 
     /* Typography & Markdown elements */
     h1, h2, h3, h4, h5, h6, p, label, li, [data-testid="stMarkdownContainer"] {{
@@ -633,6 +786,7 @@ st.markdown(f"""
             max-width: 320px !important;
         }}
     }}
+    {theme_css}
 </style>
 """, unsafe_allow_html=True)
 
@@ -723,15 +877,25 @@ with st.sidebar:
     st.caption(t("by_jaybee", lang))
     
     # Language Switcher in Sidebar
-    st.markdown("<div style='margin-top: 10px; margin-bottom: 6px; font-weight: 600; font-size: 13px; color: #94a3b8;'>🌐 שפה / Language:</div>", unsafe_allow_html=True)
     sb_active_id = st.session_state.active_report_id or 1
+    st.markdown(f"<div style='margin-top: 10px; margin-bottom: 6px; font-weight: 600; font-size: 13px; color: {'#475569' if is_light else '#94a3b8'};'>🌐 שפה / Language:</div>", unsafe_allow_html=True)
     st.markdown(f"""
-    <div style="display:flex; gap:8px; margin-bottom:12px;">
-        <a href="?lang={LANG_HE}&report_id={sb_active_id}" target="_self" style="flex:1; text-align:center; padding:7px 8px; border-radius:6px; text-decoration:none; display:flex; align-items:center; justify-content:center; gap:6px; font-size:13px; font-weight:600; background:{'linear-gradient(135deg, #0284c7, #0369a1)' if lang == LANG_HE else '#1e293b'}; color:{'#ffffff' if lang == LANG_HE else '#cbd5e1'} !important; border:1px solid {'#38bdf8' if lang == LANG_HE else 'rgba(75, 189, 219, 0.25)'}; box-shadow:{'0 0 10px rgba(56,189,248,0.4)' if lang == LANG_HE else 'none'};">
+    <div style="display:flex; gap:8px; margin-bottom:10px;">
+        <a href="?lang={LANG_HE}&report_id={sb_active_id}&theme={theme}" target="_self" style="flex:1; text-align:center; padding:7px 8px; border-radius:6px; text-decoration:none; display:flex; align-items:center; justify-content:center; gap:6px; font-size:13px; font-weight:600; background:{'linear-gradient(135deg, #0284c7, #0369a1)' if lang == LANG_HE else ('#ffffff' if is_light else '#1e293b')}; color:{'#ffffff' if lang == LANG_HE else ('#0f172a' if is_light else '#cbd5e1')} !important; border:1px solid {'#38bdf8' if lang == LANG_HE else ('#cbd5e1' if is_light else 'rgba(75, 189, 219, 0.25)')}; box-shadow:{'0 0 10px rgba(56,189,248,0.4)' if lang == LANG_HE else 'none'};">
             {FLAG_IL_SVG} עברית
         </a>
-        <a href="?lang={LANG_EN}&report_id={sb_active_id}" target="_self" style="flex:1; text-align:center; padding:7px 8px; border-radius:6px; text-decoration:none; display:flex; align-items:center; justify-content:center; gap:6px; font-size:13px; font-weight:600; background:{'linear-gradient(135deg, #0284c7, #0369a1)' if lang == LANG_EN else '#1e293b'}; color:{'#ffffff' if lang == LANG_EN else '#cbd5e1'} !important; border:1px solid {'#38bdf8' if lang == LANG_EN else 'rgba(75, 189, 219, 0.25)'}; box-shadow:{'0 0 10px rgba(56,189,248,0.4)' if lang == LANG_EN else 'none'};">
+        <a href="?lang={LANG_EN}&report_id={sb_active_id}&theme={theme}" target="_self" style="flex:1; text-align:center; padding:7px 8px; border-radius:6px; text-decoration:none; display:flex; align-items:center; justify-content:center; gap:6px; font-size:13px; font-weight:600; background:{'linear-gradient(135deg, #0284c7, #0369a1)' if lang == LANG_EN else ('#ffffff' if is_light else '#1e293b')}; color:{'#ffffff' if lang == LANG_EN else ('#0f172a' if is_light else '#cbd5e1')} !important; border:1px solid {'#38bdf8' if lang == LANG_EN else ('#cbd5e1' if is_light else 'rgba(75, 189, 219, 0.25)')}; box-shadow:{'0 0 10px rgba(56,189,248,0.4)' if lang == LANG_EN else 'none'};">
             {FLAG_GB_SVG} English
+        </a>
+    </div>
+    
+    <div style='margin-top: 10px; margin-bottom: 6px; font-weight: 600; font-size: 13px; color: {"#475569" if is_light else "#94a3b8"};'>{t("theme_label", lang)}</div>
+    <div style="display:flex; gap:8px; margin-bottom:12px;">
+        <a href="?lang={lang}&report_id={sb_active_id}&theme={THEME_LIGHT}" target="_self" style="flex:1; text-align:center; padding:7px 8px; border-radius:6px; text-decoration:none; display:flex; align-items:center; justify-content:center; gap:6px; font-size:13px; font-weight:600; background:{'linear-gradient(135deg, #0284c7, #0369a1)' if is_light else ('#ffffff' if is_light else '#1e293b')}; color:{'#ffffff' if is_light else ('#0f172a' if is_light else '#cbd5e1')} !important; border:1px solid {'#38bdf8' if is_light else ('#cbd5e1' if is_light else 'rgba(75, 189, 219, 0.25)')}; box-shadow:{'0 0 10px rgba(56,189,248,0.4)' if is_light else 'none'};">
+            ☀️ {t('theme_light', lang)}
+        </a>
+        <a href="?lang={lang}&report_id={sb_active_id}&theme={THEME_DARK}" target="_self" style="flex:1; text-align:center; padding:7px 8px; border-radius:6px; text-decoration:none; display:flex; align-items:center; justify-content:center; gap:6px; font-size:13px; font-weight:600; background:{'linear-gradient(135deg, #0284c7, #0369a1)' if not is_light else ('#ffffff' if is_light else '#1e293b')}; color:{'#ffffff' if not is_light else ('#0f172a' if is_light else '#cbd5e1')} !important; border:1px solid {'#38bdf8' if not is_light else ('#cbd5e1' if is_light else 'rgba(75, 189, 219, 0.25)')}; box-shadow:{'0 0 10px rgba(56,189,248,0.4)' if not is_light else 'none'};">
+            🌙 {t('theme_dark', lang)}
         </a>
     </div>
     """, unsafe_allow_html=True)
@@ -798,11 +962,19 @@ st.markdown(f"""
         </div>
         <div class="header-controls-section">
             <div class="top-flags-bar" style="margin-bottom:0;">
-                <a href="?lang={LANG_HE}{rep_param_he}" target="_self" class="lang-flag-pill {'active' if lang == LANG_HE else ''}" title="עבור לעברית">
+                <a href="?lang={LANG_HE}{rep_param_he}&theme={theme}" target="_self" class="lang-flag-pill {'active' if lang == LANG_HE else ''}" title="עבור לעברית">
                     {FLAG_IL_SVG} <span>עברית</span>
                 </a>
-                <a href="?lang={LANG_EN}{rep_param_en}" target="_self" class="lang-flag-pill {'active' if lang == LANG_EN else ''}" title="Switch to English">
+                <a href="?lang={LANG_EN}{rep_param_en}&theme={theme}" target="_self" class="lang-flag-pill {'active' if lang == LANG_EN else ''}" title="Switch to English">
                     {FLAG_GB_SVG} <span>English</span>
+                </a>
+            </div>
+            <div class="top-theme-bar" style="display:flex; align-items:center; gap:6px; direction:ltr !important;">
+                <a href="?lang={lang}{rep_param_he}&theme={THEME_LIGHT}" target="_self" class="lang-flag-pill {'active' if is_light else ''}" title="מצב בהיר (רגיל) / Light Mode">
+                    <span>☀️</span> <span>{t('theme_light', lang)}</span>
+                </a>
+                <a href="?lang={lang}{rep_param_he}&theme={THEME_DARK}" target="_self" class="lang-flag-pill {'active' if not is_light else ''}" title="מצב כהה / Dark Mode">
+                    <span>🌙</span> <span>{t('theme_dark', lang)}</span>
                 </a>
             </div>
             <div class="header-badge-section">
