@@ -365,8 +365,9 @@ TEXTS = {
         "sidebar_load_csv": "📊 טען דוח CSV לדוגמה",
         "sidebar_pdf_success": "דוח PDF נטען ונשמר כדוח #{id}!",
         "sidebar_csv_success": "דוח CSV נטען ונשמר כדוח #{id}!",
-        "sidebar_footer": "פיתוח: מומחה מערכות תפעול מלונאיות • JAYBEE Systems",
-        "theme_label": "🎨 מצב תצוגה / Theme:",
+        "settings_label": "הגדרות",
+        "language_label": "שפה / Language",
+        "theme_label": "מצב תצוגה",
         "theme_light": "בהיר (רגיל)",
         "theme_dark": "כהה",
         # Tabs
@@ -555,8 +556,9 @@ TEXTS = {
         "sidebar_load_csv": "📊 Load Sample CSV Report",
         "sidebar_pdf_success": "PDF Report loaded and saved as Report #{id}!",
         "sidebar_csv_success": "CSV Report loaded and saved as Report #{id}!",
-        "sidebar_footer": "Engineered by Hotel Operations Systems Expert • JAYBEE Systems",
-        "theme_label": "🎨 Theme / מצב תצוגה:",
+        "settings_label": "Settings",
+        "language_label": "Language / שפה",
+        "theme_label": "Display Theme",
         "theme_light": "Light (Regular)",
         "theme_dark": "Dark",
         # Tabs

@@ -106,137 +106,167 @@ setInterval(hideCloudManageApp, 500);
 </script>
 """, height=0, width=0)
 
-# Dynamic Theme CSS Overrides
-theme_css = f"""
-    /* Light Theme Global Palette */
-    .stApp, [data-testid="stAppViewContainer"], .main, .block-container {{
-        background-color: #f8fafc !important;
-        color: #0f172a !important;
-    }}
-    [data-testid="stSidebar"], [data-testid="stSidebarContent"], section[data-testid="stSidebar"] {{
-        background-color: #f1f5f9 !important;
-        color: #0f172a !important;
-        border-inline-end: 1px solid #cbd5e1 !important;
-    }}
-    h1, h2, h3, h4, h5, h6, p, label, li, [data-testid="stMarkdownContainer"] {{
-        color: #0f172a !important;
-    }}
-    .stMarkdown p, .stMarkdown span {{
-        color: #1e293b !important;
-    }}
-    /* Metric Cards in Light Mode */
-    div[data-testid="stMetric"] {{
-        background: #ffffff !important;
-        border: 1px solid #cbd5e1 !important;
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05) !important;
-    }}
-    [data-testid="stMetricLabel"], [data-testid="stMetricLabel"] * {{
-        color: #475569 !important;
-    }}
-    [data-testid="stMetricValue"], [data-testid="stMetricValue"] * {{
-        color: #0f172a !important;
-    }}
-    [data-testid="stMetricDelta"] svg {{
-        fill: #0284c7 !important;
-    }}
-    [data-testid="stMetricDelta"] div, [data-testid="stMetricDelta"] p {{
-        color: #0284c7 !important;
-    }}
-    /* Expanders in Light Mode */
-    div[data-testid="stExpander"] {{
-        background: #ffffff !important;
-        border: 1px solid #cbd5e1 !important;
-        box-shadow: 0 2px 8px rgba(0,0,0,0.04) !important;
-    }}
-    div[data-testid="stExpander"] summary {{
-        background: #f8fafc !important;
-        color: #0f172a !important;
-        border-bottom: 1px solid #e2e8f0 !important;
-    }}
-    div[data-testid="stExpander"] summary * {{
-        color: #0f172a !important;
-    }}
-    /* Native Styled HTML Tables in Light Mode */
-    .sb-table {{
-        background: #ffffff !important;
-        color: #0f172a !important;
-        border: 1px solid #e2e8f0 !important;
-    }}
-    .sb-table thead tr th {{
-        background: #e2e8f0 !important;
-        color: #0f172a !important;
-        border-bottom: 2px solid #cbd5e1 !important;
-    }}
-    .sb-table tbody tr {{
-        border-bottom: 1px solid #e2e8f0 !important;
-        background: #ffffff !important;
-    }}
-    .sb-table tbody tr:hover {{
-        background: #f1f5f9 !important;
-    }}
-    .sb-table tbody tr td {{
-        color: #1e293b !important;
-    }}
-    /* Tabs in Light Mode */
-    button[data-baseweb="tab"] {{
-        color: #475569 !important;
-    }}
-    button[data-baseweb="tab"][aria-selected="true"] {{
-        color: #0284c7 !important;
-        border-bottom-color: #0284c7 !important;
-    }}
-    /* Tab 2 briefing banner in Light Mode */
-    .tab2-brief-banner {{
-        background: #ffffff !important;
-        border: 1px solid #cbd5e1 !important;
-        box-shadow: 0 2px 8px rgba(0,0,0,0.06) !important;
-    }}
-    .tab2-brief-banner h3 {{
-        color: #0284c7 !important;
-    }}
-    .tab2-brief-banner p {{
-        color: #475569 !important;
-    }}
-    /* Main Header Banner in Light Mode - High Contrast White Card */
-    .main-header {{
-        background: #ffffff !important;
-        border: 1px solid #cbd5e1 !important;
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06) !important;
-    }}
-    .main-header h2, .main-header h2 span {{
-        color: #0f172a !important;
-    }}
-    .main-header p, .main-header p span {{
-        color: #475569 !important;
-    }}
-    .main-header p strong {{
-        color: #0f172a !important;
-    }}
-    .main-header a {{
-        color: #0284c7 !important;
-    }}
-    .header-badge-section {{
-        background: #f1f5f9 !important;
-        border: 1px solid #cbd5e1 !important;
-        color: #0369a1 !important;
-    }}
-
-    /* Pills in Light Mode */
-    .lang-flag-pill {{
-        background: #ffffff !important;
-        color: #475569 !important;
-        border: 1px solid #cbd5e1 !important;
-    }}
-    .lang-flag-pill:hover {{
-        background: #f1f5f9 !important;
-        color: #0284c7 !important;
-    }}
-    .lang-flag-pill.active {{
-        background: linear-gradient(135deg, #0284c7, #0369a1) !important;
-        color: #ffffff !important;
-        border-color: #0284c7 !important;
-    }}
-""" if is_light else ""
+# Theme Palette Configuration (Strict Contrast for Light and Dark)
+if is_light:
+    app_bg = "#f8fafc"
+    app_text = "#0f172a"
+    sidebar_bg = "#f1f5f9"
+    sidebar_border = "#cbd5e1"
+    
+    header_bg = "#ffffff"
+    header_border = "#cbd5e1"
+    header_title_col = "#0f172a"
+    header_sub_col = "#475569"
+    header_link_col = "#0284c7"
+    header_badge_bg = "#f1f5f9"
+    header_badge_border = "#cbd5e1"
+    header_badge_col = "#0369a1"
+    
+    metric_bg = "#ffffff"
+    metric_border = "#cbd5e1"
+    metric_label_col = "#475569"
+    metric_val_col = "#0f172a"
+    metric_delta_col = "#0284c7"
+    metric_shadow = "0 2px 8px rgba(0, 0, 0, 0.05)"
+    
+    expander_bg = "#ffffff"
+    expander_border = "#cbd5e1"
+    expander_summary_bg = "#f8fafc"
+    expander_summary_col = "#0f172a"
+    expander_summary_border = "1px solid #e2e8f0"
+    expander_summary_hover = "#0284c7"
+    expander_details_text = "#334155"
+    expander_details_head = "#0f172a"
+    expander_shadow = "0 2px 8px rgba(0, 0, 0, 0.04)"
+    
+    table_container_bg = "#ffffff"
+    table_border = "#cbd5e1"
+    table_th_bg = "#f1f5f9"
+    table_th_col = "#0f172a"
+    table_th_border = "2px solid #cbd5e1"
+    table_tr_border = "1px solid #e2e8f0"
+    table_tr_even = "#f8fafc"
+    table_tr_hover = "#f1f5f9"
+    table_td_col = "#1e293b"
+    table_shadow = "0 2px 8px rgba(0, 0, 0, 0.04)"
+    
+    badge_succ_bg = "#dcfce7"
+    badge_succ_col = "#15803d"
+    badge_succ_bord = "1px solid #86efac"
+    
+    badge_att_bg = "#fee2e2"
+    badge_att_col = "#b91c1c"
+    badge_att_bord = "1px solid #fca5a5"
+    
+    badge_info_bg = "#e0f2fe"
+    badge_info_col = "#0369a1"
+    badge_info_bord = "1px solid #7dd3fc"
+    
+    code_bg = "#e2e8f0"
+    code_col = "#0f172a"
+    code_bord = "#cbd5e1"
+    
+    dropzone_bg = "#f8fafc"
+    dropzone_border = "#94a3b8"
+    dropzone_text = "#1e293b"
+    
+    tab_text = "#475569"
+    tab_active_text = "#0284c7"
+    tab_active_border = "#0284c7"
+    
+    alert_bg = "#ffffff"
+    alert_border = "#cbd5e1"
+    alert_text = "#0f172a"
+    
+    settings_btn_bg = "#f1f5f9"
+    settings_btn_col = "#0f172a"
+    settings_btn_bord = "#cbd5e1"
+    settings_menu_bg = "#ffffff"
+    settings_menu_border = "#cbd5e1"
+    settings_item_bg = "#f8fafc"
+    settings_item_col = "#334155"
+    settings_item_bord = "#e2e8f0"
+    settings_divider = "#e2e8f0"
+else:
+    app_bg = "#070d14"
+    app_text = "#ffffff"
+    sidebar_bg = "#091421"
+    sidebar_border = "rgba(75, 189, 219, 0.2)"
+    
+    header_bg = "linear-gradient(135deg, #0d2838, #0a1924)"
+    header_border = "rgba(75, 189, 219, 0.3)"
+    header_title_col = "#ffffff"
+    header_sub_col = "#cbd5e1"
+    header_link_col = "#60a5fa"
+    header_badge_bg = "rgba(75, 189, 219, 0.15)"
+    header_badge_border = "rgba(75, 189, 219, 0.4)"
+    header_badge_col = "#38bdf8"
+    
+    metric_bg = "#0d1e2e"
+    metric_border = "rgba(75, 189, 219, 0.35)"
+    metric_label_col = "#e2e8f0"
+    metric_val_col = "#ffffff"
+    metric_delta_col = "#38bdf8"
+    metric_shadow = "0 4px 12px rgba(0, 0, 0, 0.25)"
+    
+    expander_bg = "#0d1726"
+    expander_border = "rgba(75, 189, 219, 0.22)"
+    expander_summary_bg = "rgba(255, 255, 255, 0.02)"
+    expander_summary_col = "#ffffff"
+    expander_summary_border = "none"
+    expander_summary_hover = "#38bdf8"
+    expander_details_text = "#cbd5e1"
+    expander_details_head = "#ffffff"
+    expander_shadow = "0 2px 8px rgba(0, 0, 0, 0.18)"
+    
+    table_container_bg = "#0d1522"
+    table_border = "rgba(255, 255, 255, 0.12)"
+    table_th_bg = "#17253a"
+    table_th_col = "#94a3b8"
+    table_th_border = "2px solid rgba(75, 189, 219, 0.4)"
+    table_tr_border = "1px solid rgba(255, 255, 255, 0.05)"
+    table_tr_even = "rgba(255, 255, 255, 0.02)"
+    table_tr_hover = "rgba(75, 189, 219, 0.08)"
+    table_td_col = "#f1f5f9"
+    table_shadow = "0 2px 8px rgba(0,0,0,0.2)"
+    
+    badge_succ_bg = "rgba(16, 185, 129, 0.18)"
+    badge_succ_col = "#34d399"
+    badge_succ_bord = "1px solid rgba(16, 185, 129, 0.3)"
+    
+    badge_att_bg = "rgba(245, 158, 11, 0.18)"
+    badge_att_col = "#fbbf24"
+    badge_att_bord = "1px solid rgba(245, 158, 11, 0.3)"
+    
+    badge_info_bg = "rgba(56, 189, 248, 0.18)"
+    badge_info_col = "#38bdf8"
+    badge_info_bord = "1px solid rgba(56, 189, 248, 0.3)"
+    
+    code_bg = "#0f172a"
+    code_col = "#10b981"
+    code_bord = "rgba(75, 189, 219, 0.3)"
+    
+    dropzone_bg = "#0e1e2e"
+    dropzone_border = "rgba(75, 189, 219, 0.4)"
+    dropzone_text = "#cbd5e1"
+    
+    tab_text = "#94a3b8"
+    tab_active_text = "#38bdf8"
+    tab_active_border = "#38bdf8"
+    
+    alert_bg = "#0f1e2e"
+    alert_border = "rgba(75, 189, 219, 0.35)"
+    alert_text = "#f1f5f9"
+    
+    settings_btn_bg = "rgba(75, 189, 219, 0.15)"
+    settings_btn_col = "#e2e8f0"
+    settings_btn_bord = "rgba(75, 189, 219, 0.4)"
+    settings_menu_bg = "#0c1a29"
+    settings_menu_border = "rgba(75, 189, 219, 0.4)"
+    settings_item_bg = "#132437"
+    settings_item_col = "#cbd5e1"
+    settings_item_bord = "rgba(75, 189, 219, 0.25)"
+    settings_divider = "rgba(75, 189, 219, 0.2)"
 
 # Dynamic CSS Styling based on Active Language (Hebrew RTL vs English LTR)
 st.markdown(f"""
@@ -290,6 +320,17 @@ st.markdown(f"""
         direction: ltr !important;
     }}
 
+    /* App Canvas & Background */
+    .stApp, [data-testid="stAppViewContainer"], .main, .block-container {{
+        background-color: {app_bg} !important;
+        color: {app_text} !important;
+    }}
+    [data-testid="stSidebar"], [data-testid="stSidebarContent"], section[data-testid="stSidebar"] {{
+        background-color: {sidebar_bg} !important;
+        color: {app_text} !important;
+        border-inline-end: 1px solid {sidebar_border} !important;
+    }}
+
     /* Main Dashboard Area */
     .main, .block-container {{
         direction: {dir_css} !important;
@@ -307,65 +348,71 @@ st.markdown(f"""
         text-align: {align_css} !important;
     }}
 
-
     /* Typography & Markdown elements */
     h1, h2, h3, h4, h5, h6, p, label, li, [data-testid="stMarkdownContainer"] {{
         direction: {dir_css} !important;
         text-align: {align_css} !important;
+        color: {app_text} !important;
+    }}
+    .stMarkdown p, .stMarkdown span {{
+        color: {expander_details_text} !important;
     }}
 
-    /* Top Flag Switcher Bar */
-    .top-flags-bar {{
-        display: flex;
-        justify-content: flex-end;
-        align-items: center;
-        gap: 8px;
-        margin-bottom: 10px;
-        direction: ltr !important;
+    /* Inline Code Spans across ALL tabs */
+    code, [data-testid="stMarkdownContainer"] code {{
+        background: {code_bg} !important;
+        color: {code_col} !important;
+        border: 1px solid {code_bord} !important;
+        font-weight: 600 !important;
+        padding: 2px 6px !important;
+        border-radius: 4px !important;
+        font-size: 12.5px !important;
     }}
-    .lang-flag-pill {{
-        display: inline-flex;
-        align-items: center;
-        gap: 6px;
-        padding: 5px 14px;
-        border-radius: 20px;
-        font-size: 13px;
-        font-weight: 600;
-        text-decoration: none !important;
-        color: #94a3b8 !important;
-        background: #0d1e2e;
-        border: 1px solid rgba(75, 189, 219, 0.25);
-        box-shadow: 0 2px 6px rgba(0,0,0,0.2);
-        transition: all 0.2s ease;
+
+    /* File Uploader Dropzone */
+    [data-testid="stFileUploadDropzone"] {{
+        background: {dropzone_bg} !important;
+        border: 2px dashed {dropzone_border} !important;
+        color: {dropzone_text} !important;
+        border-radius: 8px !important;
     }}
-    .lang-flag-pill:hover {{
-        color: #38bdf8 !important;
-        border-color: rgba(75, 189, 219, 0.6);
-        background: #11283d;
-        transform: translateY(-1px);
+    [data-testid="stFileUploadDropzone"] * {{
+        color: {dropzone_text} !important;
     }}
-    .lang-flag-pill.active {{
-        background: linear-gradient(135deg, #0284c7, #0369a1);
+    [data-testid="stFileUploadDropzone"] button {{
+        background: #0284c7 !important;
         color: #ffffff !important;
-        border-color: #38bdf8;
-        box-shadow: 0 0 10px rgba(56, 189, 248, 0.45);
+        border: none !important;
+        font-weight: 600 !important;
     }}
-    .lang-flag-pill .flag-icon {{
-        font-size: 16px;
-        line-height: 1;
+    [data-testid="stUploadedFileData"] {{
+        background: {expander_bg} !important;
+        border: 1px solid {expander_border} !important;
+        color: {app_text} !important;
+    }}
+
+    /* Alert Boxes (st.info, st.success, st.warning, st.error) */
+    div[data-testid="stAlert"] {{
+        background: {alert_bg} !important;
+        border: 1px solid {alert_border} !important;
+        box-shadow: 0 2px 6px rgba(0,0,0,0.04) !important;
+        border-radius: 8px !important;
+    }}
+    div[data-testid="stAlert"] * {{
+        color: {alert_text} !important;
     }}
 
     /* Main Header Banner */
     .main-header {{
-        background: linear-gradient(135deg, #0d2838, #0a1924);
-        color: white;
+        background: {header_bg} !important;
+        color: {header_title_col} !important;
         padding: 16px 22px;
         border-radius: 10px;
         margin-bottom: 20px;
         direction: {dir_css} !important;
         text-align: {align_css} !important;
-        border: 1px solid rgba(75, 189, 219, 0.3);
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        border: 1px solid {header_border} !important;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, {'0.06' if is_light else '0.15'}) !important;
         box-sizing: border-box !important;
         width: 100% !important;
     }}
@@ -387,41 +434,146 @@ st.markdown(f"""
         margin: 0 0 4px 0 !important;
         font-size: 20px !important;
         font-weight: 700 !important;
-        color: #ffffff !important;
+        color: {header_title_col} !important;
+    }}
+    .header-info-container h2 span {{
+        color: {header_title_col} !important;
     }}
     .header-info-container p {{
         margin: 0 !important;
         font-size: 13px !important;
-        color: #cbd5e1 !important;
+        color: {header_sub_col} !important;
+    }}
+    .header-info-container p strong {{
+        color: {header_title_col} !important;
+    }}
+    .header-info-container a {{
+        color: {header_link_col} !important;
+        text-decoration: none !important;
     }}
     .header-controls-section {{
         display: flex;
         align-items: center;
-        gap: 12px;
+        gap: 10px;
         flex-wrap: wrap;
-        direction: ltr !important;
+        direction: {dir_css} !important;
     }}
     .header-badge-section {{
-        background: rgba(75, 189, 219, 0.15);
-        border: 1px solid rgba(75, 189, 219, 0.4);
+        background: {header_badge_bg} !important;
+        border: 1px solid {header_badge_border} !important;
         padding: 6px 14px;
         border-radius: 20px;
         font-size: 13px;
         font-weight: 600;
-        color: #38bdf8;
+        color: {header_badge_col} !important;
         white-space: nowrap;
         direction: ltr !important;
     }}
 
-    /* Metric Cards Styling (Solid High-Contrast Navy Cards for Light & Dark) */
+    /* Settings Gear Dropdown Component */
+    .sb-settings-dropdown {{
+        position: relative;
+        display: inline-block;
+        direction: {dir_css} !important;
+        text-align: {align_css} !important;
+    }}
+    .sb-settings-dropdown summary {{
+        list-style: none !important;
+        cursor: pointer;
+    }}
+    .sb-settings-dropdown summary::-webkit-details-marker {{
+        display: none !important;
+    }}
+    .sb-settings-btn {{
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        padding: 6px 14px;
+        border-radius: 20px;
+        font-size: 13px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        user-select: none;
+        background: {settings_btn_bg} !important;
+        color: {settings_btn_col} !important;
+        border: 1px solid {settings_btn_bord} !important;
+        box-shadow: 0 2px 6px rgba(0,0,0,0.06);
+    }}
+    .sb-settings-btn:hover {{
+        border-color: #0284c7 !important;
+        color: #0284c7 !important;
+        transform: translateY(-1px);
+    }}
+    .sb-settings-menu {{
+        position: absolute;
+        top: calc(100% + 8px);
+        {'left: 0;' if is_rtl else 'right: 0;'}
+        z-index: 99999999 !important;
+        min-width: 220px;
+        padding: 12px 14px;
+        border-radius: 10px;
+        box-shadow: 0 10px 25px -5px rgba(0,0,0,0.35), 0 8px 10px -6px rgba(0,0,0,0.2);
+        background: {settings_menu_bg} !important;
+        border: 1px solid {settings_menu_border} !important;
+        direction: {dir_css} !important;
+        text-align: {align_css} !important;
+    }}
+    .sb-settings-group {{
+        margin-bottom: 6px;
+    }}
+    .sb-settings-title {{
+        font-size: 11.5px;
+        font-weight: 700;
+        color: {'#64748b' if is_light else '#94a3b8'};
+        margin-bottom: 6px;
+        letter-spacing: 0.3px;
+    }}
+    .sb-settings-options {{
+        display: flex;
+        gap: 6px;
+    }}
+    .sb-setting-item {{
+        flex: 1;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 5px;
+        padding: 6px 8px;
+        border-radius: 6px;
+        font-size: 12.5px;
+        font-weight: 600;
+        text-decoration: none !important;
+        transition: all 0.15s ease;
+        background: {settings_item_bg} !important;
+        color: {settings_item_col} !important;
+        border: 1px solid {settings_item_bord} !important;
+    }}
+    .sb-setting-item:hover {{
+        border-color: #0284c7 !important;
+        color: #0284c7 !important;
+    }}
+    .sb-setting-item.active {{
+        background: linear-gradient(135deg, #0284c7, #0369a1) !important;
+        color: #ffffff !important;
+        border-color: #0284c7 !important;
+        box-shadow: 0 0 8px rgba(2, 132, 199, 0.4);
+    }}
+    .sb-settings-divider {{
+        height: 1px;
+        background: {settings_divider} !important;
+        margin: 10px 0;
+    }}
+
+    /* Metric Cards Styling */
     div[data-testid="stMetric"] {{
         text-align: {align_css} !important;
         direction: {dir_css} !important;
-        background: #0d1e2e !important;
+        background: {metric_bg} !important;
         padding: 14px 16px !important;
         border-radius: 8px !important;
-        border: 1px solid rgba(75, 189, 219, 0.35) !important;
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25) !important;
+        border: 1px solid {metric_border} !important;
+        box-shadow: {metric_shadow} !important;
         box-sizing: border-box !important;
         min-height: 90px !important;
     }}
@@ -432,7 +584,7 @@ st.markdown(f"""
         justify-content: flex-start !important;
         font-weight: 600 !important;
         font-size: 13px !important;
-        color: #e2e8f0 !important;
+        color: {metric_label_col} !important;
     }}
     [data-testid="stMetricValue"],
     [data-testid="stMetricValue"] * {{
@@ -440,29 +592,43 @@ st.markdown(f"""
         direction: {dir_css} !important;
         font-weight: 700 !important;
         font-size: 24px !important;
-        color: #ffffff !important;
+        color: {metric_val_col} !important;
     }}
     [data-testid="stMetricDelta"] svg {{
-        fill: #38bdf8 !important;
+        fill: {metric_delta_col} !important;
     }}
     [data-testid="stMetricDelta"] div,
     [data-testid="stMetricDelta"] p {{
-        color: #38bdf8 !important;
+        color: {metric_delta_col} !important;
         font-weight: 600 !important;
     }}
 
-    /* Streamlit Tabs */
+    /* Streamlit Tabs Navigation Bar */
     div[data-baseweb="tab-list"] {{
         direction: {dir_css} !important;
         justify-content: flex-start !important;
         gap: 8px !important;
-        border-bottom: 2px solid rgba(255, 255, 255, 0.1) !important;
+        border-bottom: 2px solid {'#e2e8f0' if is_light else 'rgba(255, 255, 255, 0.1)'} !important;
     }}
     button[data-baseweb="tab"] {{
         direction: {dir_css} !important;
         font-size: 14px !important;
         font-weight: 600 !important;
         padding: 10px 16px !important;
+        color: {tab_text} !important;
+        background: transparent !important;
+        border: none !important;
+        border-bottom: 3px solid transparent !important;
+        transition: all 0.2s ease !important;
+    }}
+    button[data-baseweb="tab"]:hover {{
+        color: {tab_active_text} !important;
+    }}
+    button[data-baseweb="tab"][aria-selected="true"] {{
+        color: {tab_active_text} !important;
+        border-bottom: 3px solid {tab_active_border} !important;
+        background: {'rgba(2, 132, 199, 0.05)' if is_light else 'rgba(56, 189, 248, 0.05)'} !important;
+        border-radius: 4px 4px 0 0 !important;
     }}
 
     /* Native Styled HTML Tables */
@@ -473,9 +639,9 @@ st.markdown(f"""
         overflow-x: auto;
         margin: 10px 0 20px 0;
         border-radius: 8px;
-        border: 1px solid rgba(255, 255, 255, 0.12);
-        background: #0d1522;
-        box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+        border: 1px solid {table_border};
+        background: {table_container_bg};
+        box-shadow: {table_shadow};
     }}
     .sb-table {{
         width: 100%;
@@ -484,37 +650,38 @@ st.markdown(f"""
         text-align: {align_css} !important;
         font-family: inherit;
         font-size: 13.5px;
+        background: {table_container_bg};
     }}
     .sb-table thead tr {{
-        background: #17253a;
-        border-bottom: 2px solid rgba(75, 189, 219, 0.4);
+        background: {table_th_bg};
+        border-bottom: {table_th_border};
     }}
     .sb-table th {{
         position: sticky;
         top: 0;
-        background: #17253a;
+        background: {table_th_bg};
         z-index: 2;
         padding: 12px 14px;
-        color: #94a3b8;
-        font-weight: 600;
+        color: {table_th_col};
+        font-weight: 700;
         text-align: {align_css} !important;
         direction: {dir_css} !important;
         white-space: nowrap;
         font-size: 13px;
     }}
     .sb-table tbody tr {{
-        border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        border-bottom: {table_tr_border};
         transition: background-color 0.15s ease;
     }}
     .sb-table tbody tr:nth-child(even) {{
-        background: rgba(255, 255, 255, 0.02);
+        background: {table_tr_even};
     }}
     .sb-table tbody tr:hover {{
-        background: rgba(75, 189, 219, 0.08);
+        background: {table_tr_hover};
     }}
     .sb-table td {{
         padding: 11px 14px;
-        color: #f1f5f9;
+        color: {table_td_col};
         text-align: {align_css} !important;
         direction: {dir_css} !important;
         vertical-align: middle;
@@ -523,43 +690,43 @@ st.markdown(f"""
 
     /* Badges */
     .badge-success {{
-        background: rgba(16, 185, 129, 0.18);
-        color: #34d399;
+        background: {badge_succ_bg};
+        color: {badge_succ_col};
         padding: 3px 9px;
         border-radius: 4px;
         font-size: 12px;
         font-weight: 600;
         display: inline-block;
-        border: 1px solid rgba(16, 185, 129, 0.3);
+        border: {badge_succ_bord};
     }}
     .badge-attention {{
-        background: rgba(245, 158, 11, 0.18);
-        color: #fbbf24;
+        background: {badge_att_bg};
+        color: {badge_att_col};
         padding: 3px 9px;
         border-radius: 4px;
         font-size: 12px;
         font-weight: 600;
         display: inline-block;
-        border: 1px solid rgba(245, 158, 11, 0.3);
+        border: {badge_att_bord};
     }}
     .badge-info {{
-        background: rgba(56, 189, 248, 0.18);
-        color: #38bdf8;
+        background: {badge_info_bg};
+        color: {badge_info_col};
         padding: 3px 9px;
         border-radius: 4px;
         font-size: 12px;
         font-weight: 600;
         display: inline-block;
-        border: 1px solid rgba(56, 189, 248, 0.3);
+        border: {badge_info_bord};
     }}
 
     /* Refined Collapsible Dropdown Windows (st.expander) */
     div[data-testid="stExpander"] {{
-        background: #0d1726 !important;
-        border: 1px solid rgba(75, 189, 219, 0.22) !important;
+        background: {expander_bg} !important;
+        border: 1px solid {expander_border} !important;
         border-radius: 8px !important;
         margin-bottom: 12px !important;
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.18) !important;
+        box-shadow: {expander_shadow} !important;
         max-width: 620px !important;
         width: 100% !important;
         transition: max-width 0.25s ease, border-color 0.2s ease, box-shadow 0.2s ease;
@@ -568,33 +735,34 @@ st.markdown(f"""
         max-width: 100% !important;
     }}
     div[data-testid="stExpander"]:hover {{
-        border-color: rgba(75, 189, 219, 0.5) !important;
-        box-shadow: 0 4px 14px rgba(75, 189, 219, 0.12) !important;
+        border-color: {expander_summary_hover} !important;
+        box-shadow: 0 4px 14px rgba(2, 132, 199, 0.12) !important;
     }}
-    /* Universal Expander Header Title & Icon Styling (Guaranteed High Contrast in Light & Dark modes) */
+    /* Universal Expander Header Title & Icon Styling */
     div[data-testid="stExpander"] summary,
     div[data-testid="stExpander"] summary *,
     details summary,
     details summary * {{
         direction: {dir_css} !important;
         text-align: {align_css} !important;
-        color: #ffffff !important;
+        color: {expander_summary_col} !important;
         font-weight: 600 !important;
         font-size: 15px !important;
     }}
     div[data-testid="stExpander"] summary {{
         padding: 11px 16px !important;
-        background: rgba(255, 255, 255, 0.02) !important;
+        background: {expander_summary_bg} !important;
         border-radius: 8px !important;
+        border-bottom: {expander_summary_border} !important;
     }}
     div[data-testid="stExpander"] summary:hover,
     div[data-testid="stExpander"] summary:hover * {{
-        color: #38bdf8 !important;
+        color: {expander_summary_hover} !important;
     }}
     div[data-testid="stExpander"] summary svg,
     div[data-testid="stExpander"] summary [data-testid="stIconMaterial"] {{
-        color: #38bdf8 !important;
-        fill: #38bdf8 !important;
+        color: {expander_summary_hover} !important;
+        fill: {expander_summary_hover} !important;
     }}
 
     /* Expander Details Inside: High Contrast Text for Light & Dark Themes */
@@ -602,18 +770,18 @@ st.markdown(f"""
     div[data-testid="stExpander"] div[data-testid="stExpanderDetails"] p,
     div[data-testid="stExpander"] div[data-testid="stExpanderDetails"] span,
     div[data-testid="stExpander"] div[data-testid="stExpanderDetails"] label,
-    div[data-testid="stExpander"] div[data-testid="stExpanderDetails"] li,
+    div[data-testid="stExpander"] div[data-testid="stExpanderDetails"] li {{
+        color: {expander_details_text} !important;
+    }}
+    div[data-testid="stExpander"] div[data-testid="stExpanderDetails"] strong,
+    div[data-testid="stExpander"] div[data-testid="stExpanderDetails"] b,
     div[data-testid="stExpander"] div[data-testid="stExpanderDetails"] h1,
     div[data-testid="stExpander"] div[data-testid="stExpanderDetails"] h2,
     div[data-testid="stExpander"] div[data-testid="stExpanderDetails"] h3,
     div[data-testid="stExpander"] div[data-testid="stExpanderDetails"] h4,
     div[data-testid="stExpander"] div[data-testid="stExpanderDetails"] h5,
     div[data-testid="stExpander"] div[data-testid="stExpanderDetails"] h6 {{
-        color: #e2e8f0 !important;
-    }}
-    div[data-testid="stExpander"] div[data-testid="stExpanderDetails"] strong,
-    div[data-testid="stExpander"] div[data-testid="stExpanderDetails"] b {{
-        color: #ffffff !important;
+        color: {expander_details_head} !important;
     }}
 
     /* =========================================================================
@@ -805,7 +973,6 @@ st.markdown(f"""
             max-width: 320px !important;
         }}
     }}
-    {theme_css}
 </style>
 """, unsafe_allow_html=True)
 
@@ -994,25 +1161,40 @@ st.markdown(f"""
             </div>
         </div>
         <div class="header-controls-section">
-            <div class="top-flags-bar" style="margin-bottom:0;">
-                <a href="?lang={LANG_HE}{rep_param_he}&theme={theme}" target="_self" class="lang-flag-pill {'active' if lang == LANG_HE else ''}" title="עבור לעברית">
-                    {FLAG_IL_SVG} <span>עברית</span>
-                </a>
-                <a href="?lang={LANG_EN}{rep_param_en}&theme={theme}" target="_self" class="lang-flag-pill {'active' if lang == LANG_EN else ''}" title="Switch to English">
-                    {FLAG_GB_SVG} <span>English</span>
-                </a>
-            </div>
-            <div class="top-theme-bar" style="display:flex; align-items:center; gap:6px; direction:ltr !important;">
-                <a href="?lang={lang}{rep_param_he}&theme={THEME_LIGHT}" target="_self" class="lang-flag-pill {'active' if is_light else ''}" title="מצב בהיר (רגיל) / Light Mode">
-                    <span>☀️</span> <span>{t('theme_light', lang)}</span>
-                </a>
-                <a href="?lang={lang}{rep_param_he}&theme={THEME_DARK}" target="_self" class="lang-flag-pill {'active' if not is_light else ''}" title="מצב כהה / Dark Mode">
-                    <span>🌙</span> <span>{t('theme_dark', lang)}</span>
-                </a>
-            </div>
             <div class="header-badge-section">
                 📅 {period_text}
             </div>
+            <details class="sb-settings-dropdown">
+                <summary class="sb-settings-btn" title="{t('settings_label', lang)}">
+                    <span style="font-size:15px; line-height:1;">⚙️</span>
+                    <span class="sb-settings-btn-text">{t('settings_label', lang)}</span>
+                </summary>
+                <div class="sb-settings-menu">
+                    <div class="sb-settings-group">
+                        <div class="sb-settings-title">🌐 {t('language_label', lang)}</div>
+                        <div class="sb-settings-options">
+                            <a href="?lang={LANG_HE}{rep_param_he}&theme={theme}" target="_self" class="sb-setting-item {'active' if lang == LANG_HE else ''}">
+                                {FLAG_IL_SVG} <span>עברית</span>
+                            </a>
+                            <a href="?lang={LANG_EN}{rep_param_en}&theme={theme}" target="_self" class="sb-setting-item {'active' if lang == LANG_EN else ''}">
+                                {FLAG_GB_SVG} <span>English</span>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="sb-settings-divider"></div>
+                    <div class="sb-settings-group">
+                        <div class="sb-settings-title">🎨 {t('theme_label', lang)}</div>
+                        <div class="sb-settings-options">
+                            <a href="?lang={lang}{rep_param_he}&theme={THEME_LIGHT}" target="_self" class="sb-setting-item {'active' if is_light else ''}">
+                                <span>☀️</span> <span>{t('theme_light', lang)}</span>
+                            </a>
+                            <a href="?lang={lang}{rep_param_he}&theme={THEME_DARK}" target="_self" class="sb-setting-item {'active' if not is_light else ''}">
+                                <span>🌙</span> <span>{t('theme_dark', lang)}</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </details>
         </div>
     </div>
 </div>
@@ -1161,11 +1343,12 @@ with tab2:
     if not engine:
         st.warning(t("no_report_warn", lang))
     else:
-        border_brief = "border-right: 4px solid #38bdf8;" if is_rtl else "border-left: 4px solid #38bdf8;"
+        accent_col = "#0284c7" if is_light else "#38bdf8"
+        border_brief = f"border-right: 4px solid {accent_col};" if is_rtl else f"border-left: 4px solid {accent_col};"
         st.markdown(f"""
-        <div class="tab2-brief-banner" style="background: #0d2131; {border_brief} padding: 14px 20px; border-radius: 8px; margin-bottom: 20px; direction: {dir_css}; text-align: {align_css}; border: 1px solid rgba(75, 189, 219, 0.3); box-shadow: 0 2px 8px rgba(0,0,0,0.18);">
-            <h3 style="margin: 0; color: #38bdf8;">{t('tab2_brief_header', lang)}</h3>
-            <p style="margin: 6px 0 0 0; color: #cbd5e1; font-size: 14px;">{t('tab2_brief_meta', lang, period=kpi['period'], site=kpi['site'], id=st.session_state.active_report_id)}</p>
+        <div class="tab2-brief-banner" style="background: {metric_bg}; {border_brief} padding: 14px 20px; border-radius: 8px; margin-bottom: 20px; direction: {dir_css}; text-align: {align_css}; border: 1px solid {metric_border}; box-shadow: {metric_shadow};">
+            <h3 style="margin: 0; color: {accent_col};">{t('tab2_brief_header', lang)}</h3>
+            <p style="margin: 6px 0 0 0; color: {expander_details_text}; font-size: 14px;">{t('tab2_brief_meta', lang, period=kpi['period'], site=kpi['site'], id=st.session_state.active_report_id)}</p>
         </div>
         """, unsafe_allow_html=True)
 
