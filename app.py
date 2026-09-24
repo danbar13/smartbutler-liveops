@@ -57,6 +57,54 @@ st.markdown(f"""
         direction: {dir_css} !important;
     }}
 
+    /* Complete elimination of Streamlit header, toolbar, developer actions (Share, Star, Edit, GitHub) and hamburger menu */
+    #MainMenu {{ visibility: hidden !important; display: none !important; }}
+    header, [data-testid="stHeader"], .stAppHeader {{
+        visibility: hidden !important;
+        display: none !important;
+        height: 0 !important;
+        width: 0 !important;
+        min-height: 0 !important;
+        max-height: 0 !important;
+        opacity: 0 !important;
+        pointer-events: none !important;
+        position: absolute !important;
+        top: -9999px !important;
+        left: -9999px !important;
+        overflow: hidden !important;
+    }}
+    footer, [data-testid="stFooter"] {{
+        visibility: hidden !important;
+        display: none !important;
+        height: 0 !important;
+    }}
+    [data-testid="stToolbar"], 
+    [data-testid="stToolbarActions"], 
+    .stAppToolbar, 
+    [data-testid="stToolbarActionButton"],
+    [data-testid="stToolbarNav"],
+    [data-testid="stMainMenuButton"] {{
+        visibility: hidden !important;
+        display: none !important;
+        opacity: 0 !important;
+        pointer-events: none !important;
+    }}
+    [data-testid="stDecoration"], 
+    [data-testid="stStatusWidget"], 
+    .stStatusWidget,
+    .stAppDeployButton,
+    [data-testid="manage-app-button"] {{
+        visibility: hidden !important;
+        display: none !important;
+    }}
+    div[class*="viewerBadge"], 
+    div[class*="Toolbar"], 
+    div[class*="StatusWidget"],
+    div[class*="profileContainer"] {{
+        display: none !important;
+        visibility: hidden !important;
+    }}
+
     /* Keep Streamlit's outer shell LTR so sidebar collapse/expand works natively */
     [data-testid="stAppViewContainer"] {{
         direction: ltr !important;
