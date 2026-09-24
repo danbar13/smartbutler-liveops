@@ -1,0 +1,106 @@
+{
+  "report_title": "Log Report - Providers",
+  "site_name": "Grand Hotel",
+  "date_range": "01/Sep/2026 - 23/Sep/2026 (Current Month)",
+  "total_tickets": 4,
+  "overall_success_rate": 25.0,
+  "avg_duration_str": "130:47",
+  "avg_duration_minutes": 7847,
+  "total_time_str": "523:08",
+  "total_time_minutes": 31388,
+  "departments": [
+    {
+      "department": "Housekeeping",
+      "total_tickets": 2,
+      "avg_duration_str": "190:38",
+      "avg_duration_minutes": 11438,
+      "total_time_str": "381:15",
+      "total_time_minutes": 22875,
+      "success_rate": 0.0
+    },
+    {
+      "department": "Maintenance",
+      "total_tickets": 1,
+      "avg_duration_str": "141:44",
+      "avg_duration_minutes": 8504,
+      "total_time_str": "141:44",
+      "total_time_minutes": 8504,
+      "success_rate": 0.0
+    },
+    {
+      "department": "Reception",
+      "total_tickets": 1,
+      "avg_duration_str": "00:09",
+      "avg_duration_minutes": 9,
+      "total_time_str": "00:09",
+      "total_time_minutes": 9,
+      "success_rate": 100.0
+    }
+  ],
+  "tickets": [
+    {
+      "department": "Housekeeping",
+      "task_category": "Cleaning - Shower",
+      "received_at": "15/Sep 17:57",
+      "creator": "Roman (1)",
+      "location": "246",
+      "description": "Cleaning - Shower",
+      "provided_at": "N/A",
+      "duration_str": "N/A",
+      "duration_minutes": null,
+      "resolver": "-",
+      "standard_str": "00:30",
+      "standard_minutes": 30,
+      "sla_met": false,
+      "sla_breach_ratio": 999.0
+    },
+    {
+      "department": "Housekeeping",
+      "task_category": "Towel Hand",
+      "received_at": "15/Sep 19:24",
+      "creator": "Roman (1)",
+      "location": "602",
+      "description": "Towel Hand (yeşil)",
+      "provided_at": "N/A",
+      "duration_str": "N/A",
+      "duration_minutes": null,
+      "resolver": "yeşil",
+      "standard_str": "00:15",
+      "standard_minutes": 15,
+      "sla_met": false,
+      "sla_breach_ratio": 999.0
+    },
+    {
+      "department": "Maintenance",
+      "task_category": "AC not working",
+      "received_at": "09/Sep 20:08",
+      "creator": "Roman (1)",
+      "location": "246",
+      "description": "AC not working (Room 246 cooling malfunction)",
+      "provided_at": "15/Sep 17:52",
+      "duration_str": "141:44",
+      "duration_minutes": 8504,
+      "resolver": "Director Maintenance",
+      "standard_str": "00:15",
+      "standard_minutes": 15,
+      "sla_met": false,
+      "sla_breach_ratio": 566.93
+    },
+    {
+      "department": "Reception",
+      "task_category": "Adaptor delivery",
+      "received_at": "09/Sep 19:38",
+      "creator": "Roman (1)",
+      "location": "242",
+      "description": "Adaptor delivery (UK to EU socket)",
+      "provided_at": "09/Sep 19:47",
+      "duration_str": "00:09",
+      "duration_minutes": 9,
+      "resolver": "Roman (1)",
+      "standard_str": "00:15",
+      "standard_minutes": 15,
+      "sla_met": true,
+      "sla_breach_ratio": 1.0
+    }
+  ]
+}

@@ -1,0 +1,31 @@
+task_id,timestamp,room_number,floor,room_status,guest_status,task_type,housekeeper_name,shift,notes
+HK-9412-1,2026-09-21 14:15:00,412,4,Clean,VIP - Stayover,VIP Refresh,Elena S.,Morning,VIP amenities refreshed. Guest asked about cooling in the room.
+HK-9412-2,2026-09-22 14:30:00,412,4,Clean,VIP - Stayover,VIP Refresh,Elena S.,Morning,Guest left handwritten note: 'Still too hot in bedroom. Please bring portable fan and ice bucket'.
+HK-9412-3,2026-09-22 20:00:00,412,4,Inspected,VIP - Stayover,TurnDown & Fan Delivery,Miriam T.,Evening,Delivered high-power standing fan and two extra ice buckets. Guest visibly frustrated.
+HK-9205-EMERG,2026-09-23 02:40:00,205,2,OutOfOrder,Relocated (Was Stayover),Water Extraction / OOO Prep,Night HK Porter Victor,Night,Wet vacuum extraction performed. Carpet fans deployed. Room blocked Out of Order.
+HK-9218-MOVE,2026-09-23 02:50:00,218,2,Inspected,VIP Relocation,Emergency VIP Arrival Prep,Night HK Porter Victor,Night,"Prepared Executive Suite 218 with fresh fruit basket, robe/slippers for moved guest from 205."
+HK-101-STD,2026-09-22 11:20:00,101,1,Clean,Checkout Clean,Daily Service,Attendant Floor 1,Morning,Standard cleaning completed according to SmartButler checklist.
+HK-102-STD,2026-09-22 12:20:00,102,1,Clean,Stayover,Daily Service,Attendant Floor 1,Morning,Standard cleaning completed according to SmartButler checklist.
+HK-106-STD,2026-09-22 12:20:00,106,1,Clean,Stayover,Daily Service,Attendant Floor 1,Morning,Standard cleaning completed according to SmartButler checklist.
+HK-110-STD,2026-09-22 12:20:00,110,1,Clean,Stayover,Daily Service,Attendant Floor 1,Morning,Standard cleaning completed according to SmartButler checklist.
+HK-114-STD,2026-09-22 12:20:00,114,1,Clean,Stayover,Daily Service,Attendant Floor 1,Morning,Standard cleaning completed according to SmartButler checklist.
+HK-201-STD,2026-09-22 11:25:00,201,2,Clean,Checkout Clean,Daily Service,Attendant Floor 2,Morning,Standard cleaning completed according to SmartButler checklist.
+HK-202-STD,2026-09-22 12:25:00,202,2,Clean,Stayover,Daily Service,Attendant Floor 2,Morning,Standard cleaning completed according to SmartButler checklist.
+HK-206-STD,2026-09-22 12:25:00,206,2,Clean,Stayover,Daily Service,Attendant Floor 2,Morning,Standard cleaning completed according to SmartButler checklist.
+HK-210-STD,2026-09-22 12:25:00,210,2,Clean,Stayover,Daily Service,Attendant Floor 2,Morning,Standard cleaning completed according to SmartButler checklist.
+HK-214-STD,2026-09-22 12:25:00,214,2,Clean,Stayover,Daily Service,Attendant Floor 2,Morning,Standard cleaning completed according to SmartButler checklist.
+HK-301-STD,2026-09-22 11:30:00,301,3,Clean,Checkout Clean,Daily Service,Attendant Floor 3,Morning,Standard cleaning completed according to SmartButler checklist.
+HK-302-STD,2026-09-22 12:30:00,302,3,Clean,Stayover,Daily Service,Attendant Floor 3,Morning,Standard cleaning completed according to SmartButler checklist.
+HK-306-STD,2026-09-22 12:30:00,306,3,Clean,Stayover,Daily Service,Attendant Floor 3,Morning,Standard cleaning completed according to SmartButler checklist.
+HK-310-STD,2026-09-22 12:30:00,310,3,Clean,Stayover,Daily Service,Attendant Floor 3,Morning,Standard cleaning completed according to SmartButler checklist.
+HK-314-STD,2026-09-22 12:30:00,314,3,Clean,Stayover,Daily Service,Attendant Floor 3,Morning,Standard cleaning completed according to SmartButler checklist.
+HK-401-STD,2026-09-22 11:35:00,401,4,Clean,Checkout Clean,Daily Service,Attendant Floor 4,Morning,Standard cleaning completed according to SmartButler checklist.
+HK-402-STD,2026-09-22 12:35:00,402,4,Clean,Stayover,Daily Service,Attendant Floor 4,Morning,Standard cleaning completed according to SmartButler checklist.
+HK-406-STD,2026-09-22 12:35:00,406,4,Clean,Stayover,Daily Service,Attendant Floor 4,Morning,Standard cleaning completed according to SmartButler checklist.
+HK-410-STD,2026-09-22 12:35:00,410,4,Clean,Stayover,Daily Service,Attendant Floor 4,Morning,Standard cleaning completed according to SmartButler checklist.
+HK-414-STD,2026-09-22 12:35:00,414,4,Clean,Stayover,Daily Service,Attendant Floor 4,Morning,Standard cleaning completed according to SmartButler checklist.
+HK-501-STD,2026-09-22 11:40:00,501,5,Clean,Checkout Clean,Daily Service,Attendant Floor 5,Morning,Standard cleaning completed according to SmartButler checklist.
+HK-502-STD,2026-09-22 12:40:00,502,5,Clean,Stayover,Daily Service,Attendant Floor 5,Morning,Standard cleaning completed according to SmartButler checklist.
+HK-506-STD,2026-09-22 12:40:00,506,5,Clean,Stayover,Daily Service,Attendant Floor 5,Morning,Standard cleaning completed according to SmartButler checklist.
+HK-510-STD,2026-09-22 12:40:00,510,5,Clean,Stayover,Daily Service,Attendant Floor 5,Morning,Standard cleaning completed according to SmartButler checklist.
+HK-514-STD,2026-09-22 12:40:00,514,5,Clean,Stayover,Daily Service,Attendant Floor 5,Morning,Standard cleaning completed according to SmartButler checklist.

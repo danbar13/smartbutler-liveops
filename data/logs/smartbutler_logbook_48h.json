@@ -1,0 +1,62 @@
+[
+  {
+    "log_id": "LOG-20260922-EV01",
+    "timestamp": "2026-09-22 23:40:00",
+    "shift": "Evening Handover",
+    "author_role": "Duty Manager",
+    "author_name": "Tomer Sharon",
+    "category": "VIP Escalation & Compensation",
+    "room_number": "412",
+    "vip_guest_name": "Dr. E. Ben-Ari (Diamond Tier VIP)",
+    "incident_description": "VIP Guest Dr. Ben-Ari confronted Front Desk in person. HVAC system failed for the 3rd time in 36 hours. Room temperature at 26.5C. Guest stated this ruined his stay before an important medical conference lecture tomorrow. Stated that previous technicians made promises that didn't hold.",
+    "compensation_offered": "Complimentary gourmet dinner at Chef Restaurant (450 ILS voucher) + 20% room rate credit on master folio (620 ILS). Free late checkout 16:00.",
+    "compensation_amount_ils": 1070.0,
+    "escalated_to_gm": true,
+    "action_required": "URGENT for Morning Standup: Chief Engineer must personally inspect unit with chiller vendor at 08:30. GM to greet guest at breakfast."
+  },
+  {
+    "log_id": "LOG-20260923-NG01",
+    "timestamp": "2026-09-23 03:15:00",
+    "shift": "Night Shift Handover",
+    "author_role": "Night Manager",
+    "author_name": "Shani Mor",
+    "category": "Facility Emergency & Room Move",
+    "room_number": "205",
+    "vip_guest_name": "Mr. & Mrs. R. Cohen",
+    "incident_description": "At 02:15 AM guest called panic-stricken due to heavy water cascade through false ceiling above bathtub. Night Tech isolated riser #2. Guests were awake in sleepwear. Handled immediate relocation to Executive Suite 218. Night Porter assisted with baggage. Clean dry clothes provided from laundry emergency stock.",
+    "compensation_offered": "Complimentary upgrade to Executive Suite 218 for remainder of stay + 2x Spa Passes + Complimentary Breakfast & mini-bar waived (850 ILS total courtesy package).",
+    "compensation_amount_ils": 850.0,
+    "escalated_to_gm": true,
+    "action_required": "Engineering to repair pipe joint riser 2 by 10:00 AM before pressure restored. Room 205 taken OOO for dehumidification."
+  },
+  {
+    "log_id": "LOG-20260921-MR01",
+    "timestamp": "2026-09-21 15:30:00",
+    "shift": "Morning Handover",
+    "author_role": "Duty Manager",
+    "author_name": "Danielle Levi",
+    "category": "Operations Summary",
+    "room_number": "Lobby",
+    "vip_guest_name": "General",
+    "incident_description": "Smooth morning operations. Occupancy at 88%. Corporate group BioMed check-in completed 42 rooms without delays.",
+    "compensation_offered": "None",
+    "compensation_amount_ils": 0.0,
+    "escalated_to_gm": false,
+    "action_required": "Prepare VIP arrival gifts for 4th floor Diamond members."
+  },
+  {
+    "log_id": "LOG-20260922-NG01",
+    "timestamp": "2026-09-23 06:45:00",
+    "shift": "Night to Morning Standup",
+    "author_role": "Night Manager",
+    "author_name": "Shani Mor",
+    "category": "Morning Standup Briefing Handover",
+    "room_number": "Hotel Wide",
+    "vip_guest_name": "Shift Handover Summary",
+    "incident_description": "Challenging night shift. Water leak in 205 contained; 3 open maintenance tasks pending critical spare parts (Boiler 2 valve, Elevator B door sensor, Ice maker capacitor). 3rd floor Wi-Fi cluster resolved partially last night, needs IT morning audit.",
+    "compensation_offered": "Shift summary note (Total 1,920 ILS allocated to Rooms 412 & 205)",
+    "compensation_amount_ils": 0.0,
+    "escalated_to_gm": true,
+    "action_required": "Engineering, HK, and FO heads must address Room 412 VIP, Room 205 flood restoration, and the 3 WaitingParts tickets immediately."
+  }
+]
