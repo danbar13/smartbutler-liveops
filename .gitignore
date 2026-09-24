@@ -45,15 +45,3 @@ header_verified_crop*.png
 # SQLite temporary journal files
 data/smartbutler_history.db-journal
 *.log
-
-# Environment variables & secrets
-.env
-.env.*
-!.env.example
-
-# Local SQLite databases
-*.db
-*.sqlite
-*.sqlite3
-data/*.db
-
