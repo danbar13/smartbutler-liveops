@@ -197,6 +197,30 @@ theme_css = f"""
     .tab2-brief-banner p {{
         color: #475569 !important;
     }}
+    /* Main Header Banner in Light Mode - High Contrast White Card */
+    .main-header {{
+        background: #ffffff !important;
+        border: 1px solid #cbd5e1 !important;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06) !important;
+    }}
+    .main-header h2, .main-header h2 span {{
+        color: #0f172a !important;
+    }}
+    .main-header p, .main-header p span {{
+        color: #475569 !important;
+    }}
+    .main-header p strong {{
+        color: #0f172a !important;
+    }}
+    .main-header a {{
+        color: #0284c7 !important;
+    }}
+    .header-badge-section {{
+        background: #f1f5f9 !important;
+        border: 1px solid #cbd5e1 !important;
+        color: #0369a1 !important;
+    }}
+
     /* Pills in Light Mode */
     .lang-flag-pill {{
         background: #ffffff !important;
@@ -211,11 +235,6 @@ theme_css = f"""
         background: linear-gradient(135deg, #0284c7, #0369a1) !important;
         color: #ffffff !important;
         border-color: #0284c7 !important;
-    }}
-    .header-badge-section {{
-        background: rgba(255, 255, 255, 0.15) !important;
-        border: 1px solid rgba(255, 255, 255, 0.35) !important;
-        color: #ffffff !important;
     }}
 """ if is_light else ""
 
