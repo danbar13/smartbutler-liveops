@@ -31,7 +31,7 @@ st.set_page_config(
     page_title="SmartButler® — LiveOps Digest",
     page_icon="🛎️",
     layout="wide",
-    initial_sidebar_state="auto"
+    initial_sidebar_state="collapsed"
 )
 
 # Initialize Language State from Query Params or Session State
@@ -44,6 +44,9 @@ lang = st.session_state.lang
 if lang not in [LANG_HE, LANG_EN]:
     lang = LANG_HE
     st.session_state.lang = LANG_HE
+
+if "lang" not in st.query_params:
+    st.query_params["lang"] = lang
 
 is_rtl = (lang == LANG_HE)
 dir_css = "rtl" if is_rtl else "ltr"
@@ -62,6 +65,9 @@ theme = st.session_state.theme
 if theme not in [THEME_DARK, THEME_LIGHT]:
     theme = THEME_DARK
     st.session_state.theme = THEME_DARK
+
+if "theme" not in st.query_params:
+    st.query_params["theme"] = theme
 
 is_light = (theme == THEME_LIGHT)
 
@@ -277,7 +283,10 @@ st.markdown(f"""
         direction: {dir_css} !important;
     }}
 
-    /* Complete elimination of Streamlit developer actions (Share, Star, Edit, GitHub, Deploy) */
+    /* Complete elimination of Streamlit developer actions, 3-dots menu, deploy, share, status */
+    #MainMenu,
+    [data-testid="stMainMenu"],
+    [data-testid="stToolbar"],
     .stAppDeployButton,
     [data-testid="stToolbarActions"], 
     [data-testid="stDecoration"], 
@@ -286,7 +295,10 @@ st.markdown(f"""
     [data-testid="stToolbarNav"],
     [data-testid="manage-app-button"],
     div[class*="viewerBadge"], 
-    div[class*="profileContainer"] {{
+    div[class*="profileContainer"],
+    header button:not([data-testid="stSidebarCollapseButton"]),
+    [data-testid="stHeader"] button:not([data-testid="stSidebarCollapseButton"]),
+    .stAppHeader button:not([data-testid="stSidebarCollapseButton"]) {{
         visibility: hidden !important;
         display: none !important;
         opacity: 0 !important;
@@ -1295,25 +1307,25 @@ with tab1:
 
             for r in all_reports:
                 is_active = (r["id"] == active_id)
-                row_bg = f"background: rgba(16, 185, 129, 0.12); {border_active}" if is_active else ""
+                row_bg = f"background: {'rgba(16, 185, 129, 0.08)' if is_light else 'rgba(16, 185, 129, 0.12)'}; {border_active}" if is_active else ""
 
                 if is_active:
                     sel_icon = '<span style="display:inline-flex; align-items:center; justify-content:center; width:22px; height:22px; border-radius:50%; background:#10b981; color:#fff; font-size:12px; font-weight:bold; box-shadow:0 0 6px rgba(16,185,129,0.5);">✓</span>'
                 else:
-                    sel_icon = f'<a href="?report_id={r["id"]}&lang={lang}&arch=1" target="_self" title="{t("t1_col_select", lang)}" style="text-decoration:none;"><span style="display:inline-flex; align-items:center; justify-content:center; width:20px; height:20px; border-radius:50%; border:2px solid #64748b; background:rgba(255,255,255,0.04); color:#94a3b8; font-size:11px; cursor:pointer;">○</span></a>'
+                    sel_icon = f'<a href="?report_id={r["id"]}&lang={lang}&theme={theme}&arch=1" target="_self" title="{t("t1_col_select", lang)}" style="text-decoration:none;"><span style="display:inline-flex; align-items:center; justify-content:center; width:20px; height:20px; border-radius:50%; border:2px solid {"#94a3b8" if is_light else "#64748b"}; background:{"#ffffff" if is_light else "rgba(255,255,255,0.04)"}; color:{"#475569" if is_light else "#94a3b8"}; font-size:11px; cursor:pointer;">○</span></a>'
 
                 status_circle = '<span style="font-size:15px;">🟢</span>' if is_active else ''
 
-                html.append(f"""<tr onclick="window.location.search='?report_id={r['id']}&lang={lang}&arch=1'" style="cursor: pointer; {row_bg}">
+                html.append(f"""<tr onclick="window.location.search='?report_id={r['id']}&lang={lang}&theme={theme}&arch=1'" style="cursor: pointer; {row_bg}">
                     <td style="text-align: center; vertical-align: middle;">{sel_icon}</td>
                     <td style="text-align: center; vertical-align: middle;">{status_circle}</td>
-                    <td style="text-align: center; vertical-align: middle; font-weight: bold; color: #38bdf8;">#{r['id']}</td>
+                    <td style="text-align: center; vertical-align: middle; font-weight: bold; color: {'#0284c7' if is_light else '#38bdf8'};">#{r['id']}</td>
                     <td style="font-weight: 600; vertical-align: middle;">{r['site_name']}</td>
                     <td style="vertical-align: middle;">{r['date_range']}</td>
                     <td style="text-align: center; font-weight: bold; vertical-align: middle;">{r['total_tickets']}</td>
                     <td style="text-align: center; vertical-align: middle;"><span class="badge-success">{r['overall_success_rate']}%</span></td>
                     <td style="text-align: center; vertical-align: middle;">{r.get('avg_duration_str') or '-'}</td>
-                    <td style="vertical-align: middle; font-family: monospace; font-size: 12px; color: #94a3b8;">{r['raw_filename']}</td>
+                    <td style="vertical-align: middle; font-family: monospace; font-size: 12px; color: {'#475569' if is_light else '#94a3b8'};">{r['raw_filename']}</td>
                 </tr>""")
 
             html.append("</tbody></table></div>")
