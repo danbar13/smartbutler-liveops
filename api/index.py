@@ -480,3 +480,12 @@ class handler(BaseHTTPRequestHandler):
         self.send_header('Content-type', 'text/html; charset=utf-8')
         self.end_headers()
         self.wfile.write(html.encode('utf-8'))
+
+if __name__ == '__main__':
+    from http.server import HTTPServer
+    port = int(os.environ.get('PORT', 8080))
+    host = '0.0.0.0'
+    server = HTTPServer((host, port), handler)
+    print(f"SmartButler LiveOps Server running on http://{host}:{port}")
+    server.serve_forever()
+
