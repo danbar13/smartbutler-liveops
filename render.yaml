@@ -1,7 +1,7 @@
 services:
   - type: web
     name: smartbutler-liveops
-    runtime: python
+    env: python
     region: frankfurt
     plan: free
     buildCommand: pip install -r requirements.txt
